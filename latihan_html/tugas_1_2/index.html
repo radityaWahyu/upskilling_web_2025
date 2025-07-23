@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 style="background-color: orange;">DATA SENSOR SUHU</h1>
+    <div id="suhu">0</div>
+    <h1 style="background-color: lightblue;">STATUS FAN</h1>
+    <div id="fanStatus">
+        <h2>-</h2>
+    </div>
+
+    <div style="display: flex;justify-content: center;gap:20px">
+        <div>
+            <h1 style="background-color: blue;">RUANG 1</h1>
+            <button id="onButton1" onclick="setStatusRuang1('ON')">ON</button>
+            <button id="offButton1" onclick="setStatusRuang1('OFF')">OFF</button>
+        </div>
+
+        <div>
+            <h1 style="background-color: blue;">RUANG 2</h1>
+            <button id="onButton2" onclick="setStatusRuang2('ON')">ON</button>
+            <button id="offButton2" onclick="setStatusRuang2('OFF')">OFF</button>
+        </div>
+
+        <div>
+            <h1 style="background-color: blue;">RUANG 3</h1>
+            <button id="onButton3" onclick="setStatusRuang3('ON')">ON</button>
+            <button id="offButton3" onclick="setStatusRuang3('OFF')">OFF</button>
+        </div>
+
+        <div>
+            <h1 style="background-color: blue;">RUANG 4</h1>
+            <button id="onButton4" onclick="setStatusRuang4('ON')">ON</button>
+            <button id="offButton4" onclick="setStatusRuang4('OFF')">OFF</button>
+        </div>
+    </div>
+    <div style="display: flex;justify-content: center;gap:20px;margin-top:20px">
+        <div>
+            <h1 style="background-color: orange;">STATUS RUANG 1</h1>
+            <h2 id="statusRuang1"> - </h2>
+        </div>
+        <div>
+            <h1 style="background-color: orange;">STATUS RUANG 2</h1>
+            <h2 id="statusRuang2"> - </h2>
+        </div>
+        <div>
+            <h1 style="background-color: orange;">STATUS RUANG 3</h1>
+            <h2 id="statusRuang3"> - </h2>
+        </div>
+        <div>
+            <h1 style="background-color: orange;">STATUS RUANG 4</h1>
+            <h2 id="statusRuang4"> - </h2>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
