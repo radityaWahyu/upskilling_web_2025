@@ -11,9 +11,9 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route("/respon")
+@app.route("/contact")
 def respon():
-    return render_template("respon.html")
+    return render_template("contact.html")
 
 if  __name__ == "__main__":
     app.run(debug=True,host="0.0.0.0")

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+<div class="w-6xl m-auto flex gap-5 py-4">
+    <div class="space-y-5 ">
+        <div class="flex justify-between">
+            <h2 class="text-lg">DASHBOARD</h2>
+        </div>
+        <div class="bg-amber-200 shadow-sm w-lg rounded-xl">
+            <img src="../static/images/smartgreenhouse.webp" alt="Shoes" />
+        </div>
+        <div class="flex gap-7">
+            <div class="card bg-base-100 shadow-sm basis-64">
+                <div class="stat place-items-center">
+                    <div class="stat-title">Suhu</div>
+                    <div class="stat-value text-secondary">25</div>
+                    <div class="stat-desc text-secondary">derajat</div>
+                </div>
+            </div>
+            <div class="card bg-base-100 6 shadow-sm basis-64">
+                <div class="stat place-items-center">
+                    <div class="stat-title">Kelembaban Depan</div>
+                    <div class="stat-value text-secondary">23</div>
+                    <div class="stat-desc text-secondary">Persen</div>
+                </div>
+            </div>
+            <div class="card bg-base-100  shadow-sm basis-64">
+                <div class="stat place-items-center">
+                    <div class="stat-title">Kelembaban Belakang</div>
+                    <div class="stat-value text-secondary">4,200</div>
+                    <div class="stat-desc text-secondary">↗︎ 40 (2%)</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Prakiraan Cuaca</h3>
+            <div class="card bg-base-100  shadow-sm w-full">
+                <div class="stat place-items-center">
+                    <div class="stat-title">Senin</div>
+                    <div class="stat-value text-secondary">4,200</div>
+                    <div class="stat-desc text-secondary">↗︎ 40 (2%)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full space-y-5">
+        <h1>Kontrol SMART GREEN HOUSE</h1>
+        <div class="space-y-5">
+            <div class="flex gap-5">
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <button class="btn btn-active btn-secondary">Fan Depan</button>
+                    <div class="badge badge-sm badge-secondary">Status : Nyala</div>
+                </div>
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <button class="btn btn-active btn-secondary">Fan Belakang</button>
+                    <div class="badge badge-sm badge-secondary">Status : Nyala</div>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <button class="btn btn-active btn-secondary">Lampu Depan</button>
+                    <div class="badge badge-sm badge-secondary">Status : Nyala</div>
+                </div>
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <button class="btn btn-active btn-secondary">Lampu Belakang</button>
+                    <div class="badge badge-sm badge-secondary">Status : Nyala</div>
+                </div>
+            </div>
+            <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                <button class="btn btn-active btn-secondary">Pompa Air</button>
+                <div class="badge badge-sm badge-secondary">Status : Nyala</div>
+            </div>
+            <div class="flex gap-5">
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <div class="radial-progress bg-secondary text-secondary-content border-secondary border-4"
+                        style="--value:70;" aria-valuenow="70" role="progressbar">
+                        70%
+                    </div>
+                    <h2>
+                        Tandon 1
+                    </h2>
+                </div>
+                <div class="card bg-base-100 shadow-md w-full flex flex-col items-center py-10 space-y-2">
+                    <div class="radial-progress bg-secondary text-secondary-content border-secondary border-4"
+                        style="--value:70;" aria-valuenow="70" role="progressbar">
+                        70%
+                    </div>
+                    <h2>
+                        Tandon 1
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
