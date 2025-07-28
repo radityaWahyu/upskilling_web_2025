@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Socket</title>
     <link rel="stylesheet" href="../static/app.css">
+    <script src="
+    https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js
+    "></script>
 </head>
 
 <body>
-    <div class="w-screen  h-screen bg-base-content text-base-100 py-5">
+    <div class="w-screen  min-h-screen bg-base-content text-base-100 py-5">
         <div class="w-6xl m-auto grid grid-cols-[70%_30%] relative pb-2 pl-2">
             <div class="absolute z-11 top-0 left-0 w-6xl h-[100%] bg-base-content" id="box-loading">
                 <p class="m-auto">Loading...</p>
@@ -41,16 +44,17 @@
                         class="aspect-auto object-cover object-[25%_25%] w-full h-[250px]">
                 </div>
                 <div class="grid grid-cols-4 gap-4 w-full">
-                    <div id="box-temp" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                    <div id="box-temp" class="bg-[#291E04] px-7 py-5 rounded-xl shadow shadow-base-100/10">
                         <div class="mb-3">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                class="fill-primary w-6 h-6 m-auto">
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="m-auto">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path
-                                        d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        d="M12 15.9998C11.4477 15.9998 11 16.4475 11 16.9998C11 17.5521 11.4477 17.9998 12 17.9998C12.5523 17.9998 13 17.5521 13 16.9998C13 16.4475 12.5523 15.9998 12 15.9998ZM12 15.9998L12.0071 10.5M12 16.9998L12.0071 17.0069M16 16.9998C16 19.209 14.2091 20.9998 12 20.9998C9.79086 20.9998 8 19.209 8 16.9998C8 15.9854 8.37764 15.0591 9 14.354L9 6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V14.354C15.6224 15.0591 16 15.9854 16 16.9998Z"
+                                        stroke="#F65174" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
                                 </g>
                             </svg>
                         </div>
@@ -59,22 +63,21 @@
                                 id="dt-temp">26.5
                             </h2>
                             <div class="leading-[1.1]">
-                                <h4 class="text-[0.8rem] text-secondary font-semibold">Temperatur</h4>
-                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">Ruangan
-                                </h5>
+                                <h4 class="text-[1rem] text-primary font-semibold">Suhu Ruang</h4>
                             </div>
                         </div>
                     </div>
-                    <div id="box-pressure" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
-                        <div class="mb-3">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                class="fill-primary w-6 h-6 m-auto">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <div id="box-pressure" class="bg-[#291E04] px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                        <div class="mb-3 text-center">
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="m-auto">
+                                <g id=" SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path
-                                        d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        d="M15 5.51215C18.4956 6.74766 21 10.0814 21 14C21 15.4685 20.6483 16.8549 20.0245 18.0794C19.7216 18.6741 19.0839 19 18.4165 19H5.58351C4.91613 19 4.27839 18.6741 3.97547 18.0794C3.3517 16.8549 3 15.4685 3 14C3 10.0814 5.50442 6.74766 9 5.51215M12 12.9999C11.4477 12.9999 11 13.4477 11 13.9999C11 14.5522 11.4477 14.9999 12 14.9999C12.5523 14.9999 13 14.5522 13 13.9999C13 13.4477 12.5523 12.9999 12 12.9999ZM12 12.9999V3.99994"
+                                        stroke="#F65174" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
                                 </g>
                             </svg>
                         </div>
@@ -83,22 +86,21 @@
                                 class="text-5xl font-semibold tracking-wide text-shadow-sm text-shadow-base-300">26.5
                             </h2>
                             <div class="leading-[1.1]">
-                                <h4 class="text-[0.8rem] text-secondary font-semibold">Tekanan Udara</h4>
-                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">
-                                    Ruangaang</h5>
+                                <h4 class="text-[1rem] text-primary font-semibold">Tekanan Udara</h4>
                             </div>
                         </div>
                     </div>
-                    <div id="box-altitude" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                    <div id="box-altitude" class="bg-[#291E04] px-7 py-5 rounded-xl shadow shadow-base-100/10">
                         <div class="mb-3">
-                            <svg class="fill-primary w-6 h-6 m-auto" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="fill-primary m-auto">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path
-                                        d="M12,22c2.579,0,4-1.35,4-3.8,0-3.243-3.237-5.871-3.375-5.981a1,1,0,0,0-1.25,0C11.237,12.329,8,14.957,8,18.2,8,20.65,9.421,22,12,22Zm0-7.639A6.153,6.153,0,0,1,14,18.2c0,1.112-.335,1.8-2,1.8s-2-.688-2-1.8A6.153,6.153,0,0,1,12,14.361ZM6.625,2.219a1,1,0,0,0-1.25,0C5.237,2.329,2,4.957,2,8.2,2,10.65,3.421,12,6,12s4-1.35,4-3.8C10,4.957,6.763,2.329,6.625,2.219ZM6,10c-1.665,0-2-.688-2-1.8A6.153,6.153,0,0,1,6,4.361,6.153,6.153,0,0,1,8,8.2C8,9.312,7.665,10,6,10ZM18.625,2.219a1,1,0,0,0-1.25,0C17.237,2.329,14,4.957,14,8.2c0,2.45,1.421,3.8,4,3.8s4-1.35,4-3.8C22,4.957,18.763,2.329,18.625,2.219ZM18,10c-1.665,0-2-.688-2-1.8a6.153,6.153,0,0,1,2-3.839A6.153,6.153,0,0,1,20,8.2C20,9.312,19.665,10,18,10Z">
+                                        d="M22 23H2v-1h20zM16 9.981V8.567l-.5-.501-2.979 2.995L6.5 5 1.983 9.543v1.44L6.5 6.45l5.307 5.33-3.038 3.055.716.716L15.5 9.48zm3 1.593v1.415l3 3.008v-1.416zM21 1h-7v1h7zm-3 18.293V4.707l2.646 2.646.707-.707L17.5 2.793l-3.854 3.853.707.707L17 4.707v14.586l-2.646-2.646-.707.707 3.853 3.853 3.854-3.854-.707-.707z">
                                     </path>
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
                                 </g>
                             </svg>
                         </div>
@@ -107,16 +109,14 @@
                                 class="text-5xl font-semibold tracking-wide text-shadow-sm text-shadow-base-300">26.5
                             </h2>
                             <div class="leading-[1.1]">
-                                <h4 class="text-[0.8rem] text-primary/90 font-semibold">Ketinggian</h4>
-                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">
-                                    Lokasi saat ini</h5>
+                                <h4 class="text-[1rem] text-primary font-semibold">Altitude</h4>
                             </div>
                         </div>
                     </div>
                     <div id="box-ldr" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
                         <div class="mb-3 text-center">
-                            <svg viewBox="0 0 24 24" fill="none" class="w-48 h-48" xmlns="http://www.w3.org/2000/svg"
-                                id="sun">
+                            <svg id="sun-icon" viewBox="0 0 24 24" fill="none" class="w-24 h-24 m-auto"
+                                xmlns="http://www.w3.org/2000/svg" id="sun">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
@@ -126,11 +126,25 @@
                                         stroke-linejoin="round"></path>
                                 </g>
                             </svg>
+                            <svg id="moon-icon" class="w-24 h-24 m-auto" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M13 6V3M18.5 12V7M14.5 4.5H11.5M21 9.5H16M15.5548 16.8151C16.7829 16.8151 17.9493 16.5506 19 16.0754C17.6867 18.9794 14.7642 21 11.3698 21C6.74731 21 3 17.2527 3 12.6302C3 9.23576 5.02061 6.31331 7.92462 5C7.44944 6.05072 7.18492 7.21708 7.18492 8.44523C7.18492 13.0678 10.9322 16.8151 15.5548 16.8151Z"
+                                        stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    </path>
+                                </g>
+                            </svg>
                         </div>
                         <div class="text-center space-y-3">
-                            <h4 id="text-ldr" class="text-[0.8rem] text-primary/90 font-semibold">Status Cahaya</h4>
+                            <h4 id="text-ldr" class="text-[1rem] text-primary/90 font-semibold">Status Cahaya</h4>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <canvas id="sensorChart" style="width:100%"></canvas>
                 </div>
             </div>
             <div class="space-y-4">
@@ -221,11 +235,37 @@
                         <span>Pompa Ruangan 2</span>
                     </button>
                 </div>
+                <div class="space-y-2">
+                    <div class="flex content-center justify-between">
+                        <h3>Waktu Sekarang</h3>
+                        <div>
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="fill-current h-6 w-6">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M4 8C4 9.10457 3.10457 10 2 10C0.895431 10 0 9.10457 0 8C0 6.89543 0.895431 6 2 6C3.10457 6 4 6.89543 4 8Z">
+                                    </path>
+                                    </path>
+                                    <path
+                                        d="M10 8C10 9.10457 9.10457 10 8 10C6.89543 10 6 9.10457 6 8C6 6.89543 6.89543 6 8 6C9.10457 6 10 6.89543 10 8Z">
+                                    </path>
+                                    <path
+                                        d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="countdown font-mono text-5xl" id="clock">
+                            12:10:10
+                        </h2>
+                    </div>
+                </div>
             </div>
         </div>
-
+        <script src="../static/app2.js"></script>
 </body>
-
-<script src="../static/app2.js"></script>
 
 </html>

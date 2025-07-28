@@ -3,6 +3,8 @@ var websocket;
 const boxLoading = document.getElementById("box-loading");
 const textLdr = document.getElementById("text-ldr");
 const boxLdr = document.getElementById("box-ldr");
+const sunIcon = document.getElementById("sun-icon");
+const moonIcon = document.getElementById("moon-icon");
 const dataTemp = document.getElementById("dt-temp");
 const dataPressure = document.getElementById("dt-pressure");
 const dataAltitude = document.getElementById("dt-altitude");
@@ -12,6 +14,57 @@ const pump2 = document.getElementById("pump-2");
 const lamp1 = document.getElementById("lamp-1");
 const lamp2 = document.getElementById("lamp-2");
 let statusLamp1;
+
+const ctx = document.getElementById("sensorChart").getContext("2d");
+const chart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "Data Suhu Ruangan",
+        data: [],
+        borderColor: "rgb(246, 81, 116)",
+        tension: 0,
+        fill: false,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: { title: { display: true, text: "Time" } },
+      y: { title: { display: true, text: "Data Suhu" } },
+    },
+  },
+});
+
+function updateClock() {
+  const now = new Date(); // Get current date and time
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+
+  // Pad single-digit numbers with a leading zero
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  const dateString = `${now.toDateString()}`; // Get formatted date string
+
+  document.getElementById("clock").innerHTML = `${timeString}`;
+}
+
+function addChartData(value) {
+  const time = new Date().toLocaleTimeString();
+  chart.data.labels.push(time);
+  chart.data.datasets[0].data.push(value);
+  if (chart.data.labels.length > 10) {
+    chart.data.labels.shift();
+    chart.data.datasets[0].data.shift();
+  }
+  chart.update();
+}
 
 function onOpenWebsocket(event) {
   // websocket.send("mulai");
@@ -31,6 +84,7 @@ function onResponseWebsocket(event) {
 
   if ("temperature" in response) {
     dataTemp.innerText = response.temperature;
+    addChartData(response.temperature);
   }
 
   if ("pressure" in response) {
@@ -46,10 +100,14 @@ function onResponseWebsocket(event) {
       boxLdr.style.backgroundColor = "#fff";
       boxLdr.style.color = "#291E04";
       textLdr.style.color = "#291E04";
+      moonIcon.style.display = "none";
+      sunIcon.style.display = "block";
     } else {
       boxLdr.style.backgroundColor = "#291E04";
       boxLdr.style.color = "#fff";
       textLdr.style.color = "#fff";
+      moonIcon.style.display = "block";
+      sunIcon.style.display = "none";
     }
   }
 
@@ -224,4 +282,6 @@ pump2.addEventListener("click", async function (event) {
 
 window.addEventListener("DOMContentLoaded", function () {
   initializeWebsocket();
+  updateClock();
+  setInterval(updateClock, 1000);
 });
