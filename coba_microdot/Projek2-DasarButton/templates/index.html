@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Lamp Controller</title>
+
+    <!-- Bootstrap 5 CSS (CDN) -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQ3nd7vWVpv7TvxlNhk2FpHFt9vlhcNmvwEr/1mgjR6qlKcuD9U5PA3uH" crossorigin="anonymous"> -->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">Lamp Controller</h1>
+        <div class="card mt-4 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-secondary">Kontrol Lampu</h3>
+                <button id="lamp-on" class="btn btn-success btn-lg">Hidupkan Lampu</button>
+                <button id="lamp-off" class="btn btn-danger btn-lg">Matikan Lampu</button>
+                <p class="mt-3">Status Lampu: <span id="lamp-status" class="fw-bold text-primary">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper (CDN) -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRH9o4+3t+ov8TTJfWlT2zVbTLASjaK/vYFe3B6k+" crossorigin="anonymous"></script> -->
+
+    <!-- Custom Script -->
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

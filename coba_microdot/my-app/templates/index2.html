@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket</title>
+    <link rel="stylesheet" href="../static/app.css">
+</head>
+
+<body>
+    <div class="w-screen  h-screen bg-base-content text-base-100 py-5">
+        <div class="w-6xl m-auto grid grid-cols-[70%_30%] relative pb-2 pl-2">
+            <div class="absolute z-11 top-0 left-0 w-6xl h-[100%] bg-base-content" id="box-loading">
+                <p class="m-auto">Loading...</p>
+            </div>
+            <div class="space-y-4 pr-10">
+                <div class="flex content-center justify-between">
+                    <h3>Smart Farming</h3>
+                    <div>
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="fill-current h-6 w-6">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M4 8C4 9.10457 3.10457 10 2 10C0.895431 10 0 9.10457 0 8C0 6.89543 0.895431 6 2 6C3.10457 6 4 6.89543 4 8Z">
+                                </path>
+                                </path>
+                                <path
+                                    d="M10 8C10 9.10457 9.10457 10 8 10C6.89543 10 6 9.10457 6 8C6 6.89543 6.89543 6 8 6C9.10457 6 10 6.89543 10 8Z">
+                                </path>
+                                <path
+                                    d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="rounded-lg overflow-hidden">
+                    <img src="../static/smartfarming.webp" alt="smartgreenhouse"
+                        class="aspect-auto object-cover object-[25%_25%] w-full h-[250px]">
+                </div>
+                <div class="grid grid-cols-4 gap-4 w-full">
+                    <div id="box-temp" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                        <div class="mb-3">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="fill-primary w-6 h-6 m-auto">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <h2 class="text-5xl font-semibold tracking-wide text-shadow-sm text-shadow-base-300"
+                                id="dt-temp">26.5
+                            </h2>
+                            <div class="leading-[1.1]">
+                                <h4 class="text-[0.8rem] text-secondary font-semibold">Temperatur</h4>
+                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">Ruangan
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="box-pressure" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                        <div class="mb-3">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                class="fill-primary w-6 h-6 m-auto">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M8 15.9998C7.44772 15.9998 7 16.4475 7 16.9998C7 17.5521 7.44772 17.9998 8 17.9998C8.55228 17.9998 9 17.5521 9 16.9998C9 16.4475 8.55228 15.9998 8 15.9998ZM8 15.9998L8.00707 12M8 16.9998L8.00707 17.0069M20 5C20 6.10457 19.1046 7 18 7C16.8954 7 16 6.10457 16 5C16 3.89543 16.8954 3 18 3C19.1046 3 20 3.89543 20 5ZM12 16.9998C12 19.209 10.2091 20.9998 8 20.9998C5.79086 20.9998 4 19.209 4 16.9998C4 15.9854 4.37764 15.0591 5 14.354L5 6C5 4.34315 6.34315 3 8 3C9.65685 3 11 4.34315 11 6V14.354C11.6224 15.0591 12 15.9854 12 16.9998Z"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <h2 id="dt-pressure"
+                                class="text-5xl font-semibold tracking-wide text-shadow-sm text-shadow-base-300">26.5
+                            </h2>
+                            <div class="leading-[1.1]">
+                                <h4 class="text-[0.8rem] text-secondary font-semibold">Tekanan Udara</h4>
+                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">
+                                    Ruangaang</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="box-altitude" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                        <div class="mb-3">
+                            <svg class="fill-primary w-6 h-6 m-auto" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M12,22c2.579,0,4-1.35,4-3.8,0-3.243-3.237-5.871-3.375-5.981a1,1,0,0,0-1.25,0C11.237,12.329,8,14.957,8,18.2,8,20.65,9.421,22,12,22Zm0-7.639A6.153,6.153,0,0,1,14,18.2c0,1.112-.335,1.8-2,1.8s-2-.688-2-1.8A6.153,6.153,0,0,1,12,14.361ZM6.625,2.219a1,1,0,0,0-1.25,0C5.237,2.329,2,4.957,2,8.2,2,10.65,3.421,12,6,12s4-1.35,4-3.8C10,4.957,6.763,2.329,6.625,2.219ZM6,10c-1.665,0-2-.688-2-1.8A6.153,6.153,0,0,1,6,4.361,6.153,6.153,0,0,1,8,8.2C8,9.312,7.665,10,6,10ZM18.625,2.219a1,1,0,0,0-1.25,0C17.237,2.329,14,4.957,14,8.2c0,2.45,1.421,3.8,4,3.8s4-1.35,4-3.8C22,4.957,18.763,2.329,18.625,2.219ZM18,10c-1.665,0-2-.688-2-1.8a6.153,6.153,0,0,1,2-3.839A6.153,6.153,0,0,1,20,8.2C20,9.312,19.665,10,18,10Z">
+                                    </path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <h2 id="dt-altitude"
+                                class="text-5xl font-semibold tracking-wide text-shadow-sm text-shadow-base-300">26.5
+                            </h2>
+                            <div class="leading-[1.1]">
+                                <h4 class="text-[0.8rem] text-primary/90 font-semibold">Ketinggian</h4>
+                                <h5 class="text-[0.5625rem] font-semibold tracking-wide text-neutral-content/50">
+                                    Lokasi saat ini</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="box-ldr" class="bg-neutral/20 px-7 py-5 rounded-xl shadow shadow-base-100/10">
+                        <div class="mb-3 text-center">
+                            <svg viewBox="0 0 24 24" fill="none" class="w-48 h-48" xmlns="http://www.w3.org/2000/svg"
+                                id="sun">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="text-center space-y-3">
+                            <h4 id="text-ldr" class="text-[0.8rem] text-primary/90 font-semibold">Status Cahaya</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="flex content-center justify-between">
+                    <h3>Kontrol Perangkat</h3>
+                    <div>
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="fill-current h-6 w-6">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M4 8C4 9.10457 3.10457 10 2 10C0.895431 10 0 9.10457 0 8C0 6.89543 0.895431 6 2 6C3.10457 6 4 6.89543 4 8Z">
+                                </path>
+                                </path>
+                                <path
+                                    d="M10 8C10 9.10457 9.10457 10 8 10C6.89543 10 6 9.10457 6 8C6 6.89543 6.89543 6 8 6C9.10457 6 10 6.89543 10 8Z">
+                                </path>
+                                <path
+                                    d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-5">
+                    <button id="lamp-1" class="btn bg-white text-black border-[#e5e5e5] flex flex-col h-24">
+                        <svg viewBox="0 0 24 24" class="fill-transparent stroke-neutral w-10 h-10"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M12.0001 7.88989L10.9301 9.74989C10.6901 10.1599 10.8901 10.4999 11.3601 10.4999H12.6301C13.1101 10.4999 13.3001 10.8399 13.0601 11.2499L12.0001 13.1099"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M8.30011 18.0399V16.8799C6.00011 15.4899 4.11011 12.7799 4.11011 9.89993C4.11011 4.94993 8.66011 1.06993 13.8001 2.18993C16.0601 2.68993 18.0401 4.18993 19.0701 6.25993C21.1601 10.4599 18.9601 14.9199 15.7301 16.8699V18.0299C15.7301 18.3199 15.8401 18.9899 14.7701 18.9899H9.26011C8.16011 18.9999 8.30011 18.5699 8.30011 18.0399Z"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M8.5 22C10.79 21.35 13.21 21.35 15.5 22" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                        <span>Lampu Ruangan 1</span>
+                    </button>
+                    <button id="lamp-2" class="btn bg-white text-black border-[#e5e5e5] flex flex-col h-24">
+                        <svg viewBox="0 0 24 24" class="fill-transparent stroke-neutral w-10 h-10"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M12.0001 7.88989L10.9301 9.74989C10.6901 10.1599 10.8901 10.4999 11.3601 10.4999H12.6301C13.1101 10.4999 13.3001 10.8399 13.0601 11.2499L12.0001 13.1099"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path
+                                    d="M8.30011 18.0399V16.8799C6.00011 15.4899 4.11011 12.7799 4.11011 9.89993C4.11011 4.94993 8.66011 1.06993 13.8001 2.18993C16.0601 2.68993 18.0401 4.18993 19.0701 6.25993C21.1601 10.4599 18.9601 14.9199 15.7301 16.8699V18.0299C15.7301 18.3199 15.8401 18.9899 14.7701 18.9899H9.26011C8.16011 18.9999 8.30011 18.5699 8.30011 18.0399Z"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                                <path d="M8.5 22C10.79 21.35 13.21 21.35 15.5 22" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                        <span>Lampu Ruangan 2</span>
+                    </button>
+                    <button id="pump-1" class="btn bg-white text-black border-[#e5e5e5] flex flex-col h-24">
+                        <svg class="fill-neutral w-10 h-10" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M9.882 9.093c-.511 4.115-3.121 4.847-3.121 7.708C6.761 18.567 8.244 20 10 20s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.016-.123-.219-.123-.235 0zm-5.999-9C3.372 4.208.762 4.939.762 7.801.762 9.566 2.244 11 4 11s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.015-.123-.219-.123-.234 0zm12 0c-.511 4.115-3.121 4.847-3.121 7.708C12.762 9.566 14.244 11 16 11s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.016-.123-.219-.123-.234 0z">
+                                </path>
+                            </g>
+                        </svg>
+                        <span>Pompa Ruangan 1</span>
+                    </button>
+                    <button id="pump-2" class="btn bg-white text-black border-[#e5e5e5] flex flex-col h-24">
+                        <svg class="fill-neutral w-10 h-10" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M9.882 9.093c-.511 4.115-3.121 4.847-3.121 7.708C6.761 18.567 8.244 20 10 20s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.016-.123-.219-.123-.235 0zm-5.999-9C3.372 4.208.762 4.939.762 7.801.762 9.566 2.244 11 4 11s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.015-.123-.219-.123-.234 0zm12 0c-.511 4.115-3.121 4.847-3.121 7.708C12.762 9.566 14.244 11 16 11s3.238-1.434 3.238-3.199c0-2.861-2.61-3.593-3.121-7.708-.016-.123-.219-.123-.234 0z">
+                                </path>
+                            </g>
+                        </svg>
+                        <span>Pompa Ruangan 2</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+<script src="../static/app2.js"></script>
+
+</html>
