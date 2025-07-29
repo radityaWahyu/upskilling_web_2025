@@ -5,14 +5,18 @@ import network
 import time
 from microdot import Microdot, send_file
 from microdot.websocket import with_websocket
-from machine import Pin
+from machine import Pin,ADC
 from bme_module import BME280Module
 
 # Setup Wi-Fi
 SSID = "BOE-"
 PASSWORD = ""
+#SSID = "free2"
+#PASSWORD = "asusa455l"
 scl = Pin(22)
 sda = Pin(21)
+pinLDR = ADC(35)
+
 
 lamp1 = 0
 lamp2 = 0
@@ -31,14 +35,6 @@ pinPump2.off()
 #pinLDR = ADC(15)
 
 bme_module = BME280Module(0, scl, sda)
-
-# async def getLDR():
-#     dataLDR = pinLDR.read_u16()
-#     cahaya = round((dataLDR/65535)*100,2)
-#     
-#     asyncio.sleep(1)
-#     return cahaya
-
 
 def connect_wifi(ssid, password):
      wlan = network.WLAN(network.STA_IF)
@@ -157,7 +153,17 @@ async def web_socket_temperature(request, ws):
         data['temperature'] = round(temp,0)
         data['pressure'] = round(pressure,0)
         data['altitude'] = round(altitude,0)
-        #data('ldr_signal') = getLDR()
+        
+        dataLDR = pinLDR.read_u16()
+        light = round((dataLDR/65535)*100,0)
+        
+        if light == 100:
+            statusLight = 0
+        else:
+            statusLight = 1
+            
+        
+        data['ldr_signal'] = statusLight
 
 
         if lamp1 != new_lamp1:

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard IoT Sumber Daya Air</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--Booststrap Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <!-- Brand -->
+        <span class="navbar-brand mb-2 mb-md-0 h1 d-flex align-items-center">
+            <img src="static/tut.png" alt="Logo" width="40" height="40" class="me-2">
+            Dashboard IoT
+        </span>
+
+        <!-- Informasi Cuaca -->
+        <span id="weather-info" class="text-light d-flex flex-wrap justify-content-center justify-content-md-end text-center">
+            <i class="bi bi-geo-alt me-1"></i> <span id="city">-</span>
+            <span class="mx-1">|</span>
+            <i id="weather-icon" class="bi bi-cloud me-1"></i> <span id="weather-desc">-</span>
+            <span class="mx-1">|</span>
+            <i class="bi bi-thermometer-half me-1"></i> <span id="temperature">-</span>°C
+            <span class="mx-1">|</span>
+            <i class="bi bi-wind me-1"></i> <span id="wind-speed">-</span> m/s
+        </span>
+    </div>
+</nav>
+
+
+<div class="main-container">
+    <!-- Main Card untuk INVENTORY LAB RPL -->
+
+    <div class="main-card inventory-card">
+        <div class="border-card mb-3">
+            <div class="data-title">
+                <h3 class="m-0">INVENTORY LAB RPL</h3>
+            </div>
+            <div class="content">
+                <ul id="inventory-list">
+                    <!-- Data akan diisi otomatis dari API -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Border-card terpisah untuk Toggle Controls -->
+        <div class="border-card mb-3">
+            <div class="data-title">
+                <h3 class="m-0">Kontrol Perangkat</h3>
+            </div>
+        <div class="toggle-controls">
+        <div class="toggle-card">
+            <h4>Lampu</h4>
+            <button class="toggle-btn" id="toggleLED" onclick="toggleLED('lampu')">OFF</button>
+        </div>
+        <div class="toggle-card">
+            <h4>Suara</h4>
+            <button class="toggle-btn" id="toggle-suara" onclick="toggleDevice('suara')">OFF</button>
+        </div>
+    </div>
+</div>
+
+<!-- Border-card untuk Status -->
+<div class="border-card mb-3">
+    <div class="data-title">
+        <h3 class="m-0">Status Sistem</h3>
+    </div>
+
+    <!-- Status utama -->
+    <div class="status-card" id="status-card">
+        <h4 id="warning-title" class="warning-text">Tidak ada peringatan</h4>
+
+        <div class="status-item">
+            <h5>Suara</h5>
+            <p id="status-suara" class="status-text">OFF</p>
+        </div>
+
+        <div class="status-item">
+            <h5>Lampu</h5>
+            <p id="status-lampu" class="status-text">OFF</p>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
+
+    <!-- Main Card untuk Data Mesin (Kanan) -->
+    <div class="main-card">
+        <div class="content-cards">
+            <!-- Data Mesin 1 -->
+            <div class="sub-card">
+                <div class="border-card">
+                    <div class="data-title">
+                        <h3 class="m-0">Data Mesin 1</h3>
+                    </div>
+                   <div class="sensor-data">
+                        <div class="sensor-label">🌡 Suhu:</div>
+                        <span id="temp" class="sensor-value">28.1</span>
+                        <div class="sensor-unit">°C</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">💧 Kelembaban:</div>
+                        <span id="humidity" class="sensor-value">40.5</span>
+                        <div class="sensor-unit">%</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">📊 Tekanan:</div>
+                        <span id="air_pressure" class="sensor-value">-</span>
+                        <div class="sensor-unit">hPa</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">🏔 Ketinggian:</div>
+                        <span id="altitude" class="sensor-value">430.7</span>
+                        <div class="sensor-unit">m</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Mesin 2 -->
+            <div class="sub-card">
+                <div class="border-card">
+                    <div class="data-title">
+                        <h3 class="m-0">Data Mesin 2</h3>
+                    </div>
+                   <div class="sensor-data">
+                        <div class="sensor-label">🌡 Suhu:</div>
+                        <span id="temp2" class="sensor-value">28.1</span>
+                        <div class="sensor-unit">°C</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">💧 Kelembaban:</div>
+                        <span id="humidity2" class="sensor-value">40.5</span>
+                        <div class="sensor-unit">%</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">📊 Tekanan:</div>
+                        <span id="air_pressure2" class="sensor-value">-</span>
+                        <div class="sensor-unit">hPa</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">🏔 Ketinggian:</div>
+                        <span id="altitude2" class="sensor-value">430.7</span>
+                        <div class="sensor-unit">m</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik Data Mesin 1 -->
+            <div class="sub-card">
+                <div class="border-card">
+                    <div class="data-title">
+                        <h3 class="m-0">Grafik Mesin 1</h3>
+                    </div>
+                    <div class="sensor-card">
+                        <canvas id="chartMesin1"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik Data Mesin 2 -->
+            <div class="sub-card">
+                <div class="border-card">
+                    <div class="data-title">
+                        <h3 class="m-0">Grafik Mesin 2</h3>
+                    </div>
+                    <div class="sensor-card">
+                        <canvas id="chartMesin2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/script2.js"></script>
+</body>
+</html>

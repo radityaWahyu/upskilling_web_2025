@@ -13,6 +13,8 @@ const pump1 = document.getElementById("pump-1");
 const pump2 = document.getElementById("pump-2");
 const lamp1 = document.getElementById("lamp-1");
 const lamp2 = document.getElementById("lamp-2");
+const jadwalTable = document.getElementById("table-jadwal");
+const jadwalTableTbody = jadwalTable.getElementsByTagName("tbody")[0];
 let statusLamp1;
 
 const ctx = document.getElementById("sensorChart").getContext("2d");
@@ -25,7 +27,7 @@ const chart = new Chart(ctx, {
         label: "Data Suhu Ruangan",
         data: [],
         borderColor: "rgb(246, 81, 116)",
-        tension: 0,
+        tension: 0.3,
         fill: false,
       },
     ],
@@ -50,7 +52,7 @@ function updateClock() {
   seconds = seconds < 10 ? "0" + seconds : seconds;
 
   const timeString = `${hours}:${minutes}:${seconds}`;
-  const dateString = `${now.toDateString()}`; // Get formatted date string
+  // const dateString = `${now.toDateString()}`; // Get formatted date string
 
   document.getElementById("clock").innerHTML = `${timeString}`;
 }
@@ -59,11 +61,39 @@ function addChartData(value) {
   const time = new Date().toLocaleTimeString();
   chart.data.labels.push(time);
   chart.data.datasets[0].data.push(value);
-  if (chart.data.labels.length > 10) {
+  if (chart.data.labels.length > 20) {
     chart.data.labels.shift();
     chart.data.datasets[0].data.shift();
   }
   chart.update();
+}
+
+function removeDataTable() {
+  if (jadwalTableTbody) {
+    jadwalTableTbody.innerHTML = "";
+  }
+}
+
+async function fetchJadwal() {
+  try {
+    removeDataTable();
+
+    const response = await fetch("http://192.168.57.91:8000/api/jadwal", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const dataJadwal = await response.json();
+    dataJadwal.forEach((row) => {
+      const rowData = jadwalTableTbody.insertRow();
+      rowData.insertCell(0).textContent = row.hari;
+      rowData.insertCell(1).textContent = row.jam;
+      rowData.insertCell(2).textContent = row.deskripsi;
+    });
+
+    // console.log(dataJadwal);
+  } catch (error) {
+    console.error("Error fetch data");
+  }
 }
 
 function onOpenWebsocket(event) {
@@ -282,6 +312,8 @@ pump2.addEventListener("click", async function (event) {
 
 window.addEventListener("DOMContentLoaded", function () {
   initializeWebsocket();
+  fetchJadwal();
   updateClock();
+  setInterval(fetchJadwal, 2000);
   setInterval(updateClock, 1000);
 });

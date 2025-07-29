@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+
+{%block content %}
+<div class="container mt-5">
+    <h2>Tambah Agenda</h2>
+    <form action="{{ url_for('add_item') }}" method="POST">
+        <div class="mb-3">
+            <label for="hari" class="form-label">Hari</label>
+            <input type="text" class="form-control" id="hari" name="hari" required>
+        </div>
+        <div class="mb-3">
+            <label for="jam" class="form-label">Jam</label>
+            <input type="text" class="form-control" id="jam" name="jam" required>
+        </div>
+        <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi</label>
+            <textarea name="deskripsi" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan Agenda</button>
+    </form>
+</div>
+{% endblock %}
