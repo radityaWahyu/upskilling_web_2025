@@ -106,4 +106,4 @@ def get_jadwal():
 # Panggil fungsi inisialisasi saat aplikasi mulai
 if __name__ == '__main__':
     init_db()
-    app.run(host="192.168.57.91",debug=True,port='8000')
+    app.run(host="192.168.2.116",debug=True,port='8000')

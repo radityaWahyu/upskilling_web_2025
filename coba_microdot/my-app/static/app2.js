@@ -78,7 +78,7 @@ async function fetchJadwal() {
   try {
     removeDataTable();
 
-    const response = await fetch("http://192.168.57.91:8000/api/jadwal", {
+    const response = await fetch("http://192.168.56.210:8000/api/jadwal", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -272,10 +272,10 @@ pump1.addEventListener("click", async function (event) {
     styleElement(pump1, data.status);
     console.log(data);
   } catch (error) {
-    console.error("Error turning on pompa:", error);
+    console.error("Error turning on pompa 1", error);
   } finally {
     pump1.removeAttribute("disabled");
-    pump1.children[1].innerHTML = "Pompa Ruangan 2";
+    pump1.children[1].innerHTML = "Pompa Ruangan 1";
   }
 });
 
